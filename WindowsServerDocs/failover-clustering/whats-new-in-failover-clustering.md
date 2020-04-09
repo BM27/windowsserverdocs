@@ -18,29 +18,24 @@ This topic explains the new and changed functionality in Failover Clustering for
 ## What's new in Windows Server 2019
 
 - **Cluster sets**
-
     Cluster sets enable you to increase the number of servers in a single software-defined datacenter (SDDC) solution beyond the current limits of a cluster. This is accomplished by grouping multiple clusters into a cluster set--a loosely-coupled grouping of multiple failover clusters: compute, storage and hyper-converged.
     With cluster sets, you can move online virtual machines (live migrate) between clusters within the cluster set.
 
     For more info, see [Cluster sets](../storage/storage-spaces/cluster-sets.md).
                 
 - **Azure-aware clusters**                
+    Failover clusters now automatically detect when they're running in Azure IaaS virtual machines and optimize the configuration to provide proactive failover and logging of Azure planned maintenance events to achieve the highest levels of availability. Deployment is also simplified by removing the need to configure the load balancer with Dynamic Network Name for cluster name.
                 
-    Failover clusters now automatically detect wh    n th    y're    runn    ng in Azure IaaS virtual machines and optimize the configuration to provide proactive failover and logging of Azure planned maintenance events to achieve the highest levels of availability. Deployment is also simplified by removing the need to configure the load balancer with Dynamic Network Name for cluster name.
-                
-- **Cross-dom    in c    uste     mig    ation**
-                
-    Failover Clusters can now dynamically move from one Active Directory domain to another, simplifying domain consolidation and allowing clusters to b' created by hardware partners and joined to the customer's domain later.    
+- **Cross-domain cluster migration**
+    Failover Clusters can now dynamically move from one Active Directory domain to another, simplifying domain consolidation and allowing clusters to be created by hardware partners and joined to the customer's domain later.
+    
 - **USB witness**                
-
-    You can now use a si    ple    USB    drive attached to a    network switch as a witness in determining quorum for a cluster. This extends the File Share Witness to support any SMB2-compliant device.
+    You can now use a simple USB drive attached to a network switch as a witness in determining quorum for a cluster. This extends the File Share Witness to support any SMB2-compliant device.
                 
-- **Cluster infras    ruct    re i    prov    ments**
-                
-    The CSV cache is now enabled    by d    faul     to     oost virtual machine performance. MSDTC now supports Cluster Shared Volumes, to allow deploying MSDTC workloads on Storage Spaces Direct such as with SQL Server. Enhanced logic to detect partitioned nodes with self-healing to return nodes to cluster membership. Enhanced cluster network route detection and self-healing.
+- **Cluster infrastructure improvements**               
+    The CSV cache is now enabled by default to boost virtual machine performance. MSDTC now supports Cluster Shared Volumes to allow deploying MSDTC workloads on Storage Spaces Direct such as with SQL Server. Enhanced logic to detect partitioned nodes with self-healing to return nodes to cluster membership. Enhanced cluster network route detection and self-healing.
                 
 - **Cluster Aware Updating supports Storage Spaces Direct**
-
     Cluster Aware Updating (CAU) is now integrated and aware of Storage Spaces Direct, validating and ensuring data resynchronization completes on each node. Cluster Aware Updating inspects updates to intelligently restart only if necessary. This enables orchestrating restarts of all servers in the cluster for planned maintenance.
 
 - **File share witness enhancements**
@@ -51,11 +46,11 @@ This topic explains the new and changed functionality in Failover Clustering for
   - A workgroup or cross-domain cluster for which there is no Active Directory cluster name object (CNO). Find out more about these enhancements in the following post in Server & Management Blogs: Failover Cluster File Share Witness and DFS.
     
     We now also explicitly block the use of a DFS Namespaces share as a location. Adding a file share witness to a DFS share can cause stability issues for your cluster, and this configuration has never been supported. We added logic to detect if a share uses DFS Namespaces, and if DFS Namespaces is detected, Failover Cluster Manager blocks creation of the witness and displays an error message about not being supported.
+    
 - **Cluster hardening**
-
     Intra-cluster communication over Server Message Block (SMB) for Cluster Shared Volumes and Storage Spaces Direct now leverages certificates to provide the most secure platform. This allows Failover Clusters to operate with no dependencies on NTLM and enable security baselines.
-- **Failover Cluster no longer uses NTLM authentication**
 
+- **Failover Cluster no longer uses NTLM authentication**
     Failover Clusters no longer use NTLM authentication. Instead Kerberos and certificate-based authentication is used exclusively. There are no changes required by the user, or deployment tools, to take advantage of this security enhancement. It also allows failover clusters to be deployed in environments where NTLM has been disabled. 
 
 
